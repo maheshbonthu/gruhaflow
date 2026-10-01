@@ -20,7 +20,7 @@ const STATUS_LABEL: Record<string, string> = {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const listing = await getListing(slug);
-  if (!listing) return { title: "Project not found — GruhaFlow" };
+  if (!listing) return { title: "Project not found — The Urban Firm" };
   const p = listing.project;
   return {
     title: `${p.name}, ${p.locality} — ${p.configs.join(", ")} from ${inr(p.priceFrom)}`,

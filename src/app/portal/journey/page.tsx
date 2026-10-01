@@ -14,7 +14,7 @@ import { fmtDate, relative } from "@/lib/fmt";
 import { getCustomerView } from "@/lib/queries";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Handover progress — GruhaFlow" };
+export const metadata = { title: "Handover progress — The Urban Firm" };
 
 const STATUS_COPY: Record<string, string> = {
   DONE: "Done",
@@ -59,7 +59,7 @@ export default async function JourneyPage() {
       </StatGrid>
 
       <div className="mt-4">
-        <Progress value={view.progress} tone={overdue ? "warn" : "brand"} />
+        <Progress value={view.progress} tone={overdue ? "bad" : "brand"} />
       </div>
 
       <Card className="mt-5" title="Milestones" subtitle="Updated by your project team as work completes.">

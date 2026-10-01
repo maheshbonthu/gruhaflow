@@ -6,7 +6,7 @@ import { Button } from "@/components/ui";
 
 export default function LoginForm({ next }: { next?: string }) {
   const router = useRouter();
-  const [email, setEmail] = useState("admin@gruhaflow.app");
+  const [email, setEmail] = useState("admin@theurbanfirm.in");
   const [password, setPassword] = useState("demo1234");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);

@@ -23,7 +23,7 @@ import {
 import { humanize } from "@/lib/fmt";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Dashboard — GruhaFlow" };
+export const metadata = { title: "Dashboard — The Urban Firm" };
 
 export default async function AdminDashboard() {
   const [funnel, agents, sources, ops, trend] = await Promise.all([

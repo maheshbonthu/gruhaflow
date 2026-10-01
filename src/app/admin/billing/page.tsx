@@ -14,7 +14,7 @@ import { collections } from "@/lib/mongodb";
 import InvoiceActions from "./InvoiceActions";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Maintenance billing — GruhaFlow" };
+export const metadata = { title: "Maintenance billing — The Urban Firm" };
 
 export default async function BillingPage() {
   const invoicesCol = await collections.invoices();

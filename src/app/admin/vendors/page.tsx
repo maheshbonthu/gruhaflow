@@ -13,7 +13,7 @@ import { collections } from "@/lib/mongodb";
 import { CATEGORY_LABELS, SLA_HOURS } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Vendors — GruhaFlow" };
+export const metadata = { title: "Vendors — The Urban Firm" };
 
 export default async function VendorsPage() {
   const vendorsCol = await collections.vendors();

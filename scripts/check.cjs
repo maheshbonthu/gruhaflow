@@ -8,7 +8,7 @@
 const { MongoClient } = require("mongodb");
 
 const uri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017";
-const dbName = process.env.MONGODB_DB || "gruhaflow";
+const dbName = process.env.MONGODB_DB || "urbanfirm";
 
 (async () => {
   const client = await new MongoClient(uri).connect();

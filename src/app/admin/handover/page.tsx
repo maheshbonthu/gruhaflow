@@ -17,7 +17,7 @@ import { listBookings } from "@/lib/queries";
 import { JOURNEY_STEPS } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Handover tracker — GruhaFlow" };
+export const metadata = { title: "Handover tracker — The Urban Firm" };
 
 export default async function HandoverPage() {
   const bookings = await listBookings();
@@ -126,7 +126,7 @@ export default async function HandoverPage() {
                   <Td className="whitespace-nowrap text-xs">{fmtDate(b.bookingDate)}</Td>
                   <Td className="min-w-[150px]">
                     <div className="flex items-center gap-2">
-                      <Progress value={b.progress} tone={b.overdueSteps ? "warn" : "brand"} />
+                      <Progress value={b.progress} tone={b.overdueSteps ? "bad" : "brand"} />
                       <span className="dim w-9 text-right text-xs tabular-nums">{b.progress}%</span>
                     </div>
                   </Td>

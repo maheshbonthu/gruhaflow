@@ -7,7 +7,7 @@ import { getFacets, searchListings, type ListingQuery } from "@/lib/listings";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
-  title: "Apartments, villas and new launches — GruhaFlow",
+  title: "Apartments, villas and new launches — The Urban Firm",
   description: "Search RERA-registered projects with live unit availability and real price bands.",
 };
 

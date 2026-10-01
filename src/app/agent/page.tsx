@@ -22,7 +22,7 @@ import { STAGE_LABELS } from "@/lib/types";
 import { ObjectId } from "mongodb";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "My dashboard — GruhaFlow" };
+export const metadata = { title: "My dashboard — The Urban Firm" };
 
 export default async function AgentDashboard() {
   const session = await getSession();

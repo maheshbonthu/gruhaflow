@@ -16,7 +16,7 @@ import { getCustomerView } from "@/lib/queries";
 import PayBill from "./PayBill";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Maintenance bills — GruhaFlow" };
+export const metadata = { title: "Maintenance bills — The Urban Firm" };
 
 export default async function BillsPage() {
   const session = await getSession();

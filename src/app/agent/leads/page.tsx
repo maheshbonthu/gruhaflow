@@ -16,7 +16,7 @@ import { listLeads } from "@/lib/queries";
 import { DEAD_STAGES, LEAD_STAGES, STAGE_LABELS } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "My call list — GruhaFlow" };
+export const metadata = { title: "My call list — The Urban Firm" };
 
 const QUICK_FILTERS: Array<{ label: string; stage?: string }> = [
   { label: "Everything" },

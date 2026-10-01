@@ -1,8 +1,8 @@
 {
-  "name": "gruhaflow",
+  "name": "the-urban-firm",
   "version": "1.0.0",
   "private": true,
-  "description": "Real-estate tele-calling CRM, post-booking handover tracking and apartment maintenance platform.",
+  "description": "The Urban Firm — property marketplace, tele-calling CRM, handover tracking and home services.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,7 +10,9 @@
     "lint": "next lint",
     "seed": "tsx scripts/seed.ts",
     "typecheck": "tsc --noEmit",
-    "devdb": "node scripts/devdb.mjs"
+    "devdb": "node scripts/devdb.mjs",
+    "contrast": "tsx scripts/contrast.ts",
+    "placeholders": "tsx scripts/placeholders.ts"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -29,6 +31,8 @@
     "@types/react-dom": "^19.0.3",
     "dotenv": "^16.4.7",
     "mongodb-memory-server": "^11.3.0",
+    "playwright": "^1.63.0",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.0.0",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"

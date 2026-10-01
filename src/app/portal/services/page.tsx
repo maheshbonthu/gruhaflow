@@ -17,7 +17,7 @@ import NewTicketForm from "./NewTicketForm";
 import CloseTicket from "./CloseTicket";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Service requests — GruhaFlow" };
+export const metadata = { title: "Service requests — The Urban Firm" };
 
 export default async function PortalServicesPage() {
   const session = await getSession();

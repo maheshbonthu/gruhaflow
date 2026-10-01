@@ -51,7 +51,7 @@ export default async function Home() {
       {/* Hero with the search box, the way a portal opens. */}
       <section className="relative overflow-hidden border-b hairline">
         <div className="absolute inset-0 opacity-25">
-          <PropertyMedia seed="gruhaflow-hero-skyline" className="h-full w-full" />
+          <PropertyMedia seed="urbanfirm-hero-skyline" className="h-full w-full" />
         </div>
         <div className="relative mx-auto max-w-6xl px-4 py-14 sm:py-20">
           <h1 className="max-w-2xl text-3xl font-semibold tracking-tight sm:text-5xl">

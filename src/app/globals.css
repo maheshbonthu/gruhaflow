@@ -1,92 +1,120 @@
 @import "tailwindcss";
 
+/**
+ * The Urban Firm — design tokens.
+ *
+ * Green, black and white only. Green is the action colour and is used
+ * sparingly; black carries the structure (header, footer, hero overlay);
+ * white is the page. No other accent exists — #DC2626 is functional only,
+ * for negative price movement and errors, and is never brand decoration.
+ *
+ * Green has three working values because one green cannot pass WCAG AA
+ * everywhere. Pick by surface, not by eye:
+ *   --green-700  white text on green   → buttons, links on white
+ *   --green      large text and shapes  → logo, pins, underlines, icons
+ *   --green-400  black text on green    → CTAs sitting on black
+ * Every pairing and its measured ratio is listed on /styleguide.
+ */
+
 @theme {
-  --color-ink-50: #f6f7f9;
-  --color-ink-100: #eceef2;
-  --color-ink-200: #d4d8e0;
-  --color-ink-300: #aeb5c3;
-  --color-ink-400: #7c869a;
-  --color-ink-500: #5a6478;
-  --color-ink-600: #434c5e;
-  --color-ink-700: #333b4a;
-  --color-ink-800: #212834;
-  --color-ink-900: #151a23;
-  --color-ink-950: #0d1118;
+  /* Neutrals */
+  --color-ink-950: #0a0a0a; /* black: header, footer, hero overlay, headings */
+  --color-ink-900: #171717; /* ink: body text */
+  --color-ink-500: #525252; /* muted: secondary text */
+  --color-ink-200: #e5e5e5; /* border */
+  --color-ink-100: #f5f5f5; /* subtle fills */
+  --color-ink-50: #fafafa; /* surface-alt: alternating sections */
 
-  --color-brand-50: #eefbf4;
-  --color-brand-100: #d5f5e3;
-  --color-brand-300: #7fdcab;
-  --color-brand-500: #16a870;
-  --color-brand-600: #0f8a5c;
-  --color-brand-700: #0c6c49;
+  /* Brand green */
+  --color-green-50: #f0fdf4;
+  --color-green-400: #22c55e;
+  --color-green-500: #16a34a;
+  --color-green-700: #15803d;
 
-  --color-gold-100: #fdf3d7;
-  --color-gold-400: #e8b84b;
-  --color-gold-600: #b98a1d;
+  /* Functional only */
+  --color-danger: #dc2626;
 
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+
+  /* 4px spacing grid is Tailwind's default; radii per §5 */
+  --radius-field: 8px;
+  --radius-card: 12px;
 }
 
+/**
+ * `dark:` is bound to an explicit class rather than the OS setting. The brand
+ * is a light system, and leaving the variant on prefers-color-scheme would let
+ * leftover dark: utilities repaint components the tokens have already set.
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --bg: var(--color-ink-50);
+  --bg: #ffffff;
   --surface: #ffffff;
-  --surface-2: var(--color-ink-100);
+  --surface-alt: var(--color-ink-50);
   --border: var(--color-ink-200);
   --text: var(--color-ink-900);
+  --text-strong: var(--color-ink-950);
   --text-dim: var(--color-ink-500);
+  --action: var(--color-green-700);
   color-scheme: light;
 }
 
-:root:not([data-theme="light"]) {
-  @media (prefers-color-scheme: dark) {
-    --bg: var(--color-ink-950);
-    --surface: var(--color-ink-900);
-    --surface-2: var(--color-ink-800);
-    --border: var(--color-ink-700);
-    --text: var(--color-ink-50);
-    --text-dim: var(--color-ink-400);
-    color-scheme: dark;
+/**
+ * These live in @layer base / @layer components on purpose. Unlayered CSS beats
+ * everything Tailwind emits, so an unlayered `* { border-color }` would quietly
+ * override every border-* utility in the product — including the red border on
+ * a validation error.
+ */
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--text-strong);
+    letter-spacing: -0.02em;
+  }
+
+  /* One visible focus treatment everywhere, per §4. */
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-green-700);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 }
 
-:root[data-theme="dark"] {
-  --bg: var(--color-ink-950);
-  --surface: var(--color-ink-900);
-  --surface-2: var(--color-ink-800);
-  --border: var(--color-ink-700);
-  --text: var(--color-ink-50);
-  --text-dim: var(--color-ink-400);
-  color-scheme: dark;
-}
-
-* {
-  border-color: var(--border);
-}
-
-html,
-body {
-  background: var(--bg);
-  color: var(--text);
-}
-
-body {
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Utility aliases so components read cleanly against the CSS variables. */
-.surface {
-  background: var(--surface);
-}
-.surface-2 {
-  background: var(--surface-2);
-}
-.dim {
-  color: var(--text-dim);
-}
-.hairline {
-  border-color: var(--border);
+/* Semantic aliases, so components read as intent rather than as raw colour.
+   In @layer components so a utility can still override them at a call site. */
+@layer components {
+  .surface {
+    background: var(--surface);
+  }
+  .surface-alt {
+    background: var(--surface-alt);
+  }
+  .dim {
+    color: var(--text-dim);
+  }
+  .hairline {
+    border-color: var(--border);
+  }
 }
 
 .scroll-x {
@@ -98,5 +126,40 @@ body {
   .scroll-x {
     margin-inline: -1rem;
     padding-inline: 1rem;
+  }
+}
+
+/* Carousels snap; arrows are progressive enhancement (§4). */
+.snap-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.snap-row::-webkit-scrollbar {
+  display: none;
+}
+.snap-row > * {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+}
+
+/* §4: pressed state. Paired with reduced-motion below. */
+.press:active {
+  transform: scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .press:active {
+    transform: none;
   }
 }

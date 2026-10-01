@@ -85,7 +85,7 @@ export default async function HandoverDetailPage({
       </StatGrid>
 
       <div className="mt-4">
-        <Progress value={progress} tone={overdue.length ? "warn" : "brand"} />
+        <Progress value={progress} tone={overdue.length ? "bad" : "brand"} />
       </div>
 
       <div className="mt-5 grid gap-5 lg:grid-cols-3">

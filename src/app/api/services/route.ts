@@ -43,7 +43,7 @@ export async function POST(req: Request) {
     const now = new Date();
     const seq = (await tickets.countDocuments({})) + 1;
     const res = await tickets.insertOne({
-      code: `GF-SR-${String(1000 + seq)}`,
+      code: `UF-SR-${String(1000 + seq)}`,
       customerId: new ObjectId(customerId),
       unitId: booking?.unitId,
       projectId: booking?.projectId,

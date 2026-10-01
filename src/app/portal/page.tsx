@@ -17,7 +17,7 @@ import { getCustomerView } from "@/lib/queries";
 import { CATEGORY_LABELS } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "My home — GruhaFlow" };
+export const metadata = { title: "My home — The Urban Firm" };
 
 export default async function PortalHome() {
   const session = await getSession();

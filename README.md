@@ -1,4 +1,4 @@
-# GruhaFlow
+# The Urban Firm
 
 A real-estate platform that covers the whole lifecycle of a home sale, not just
 the listing: a **housing-portal front end**, a **tele-calling CRM** behind it, a
@@ -104,7 +104,7 @@ without Atlas or Docker. It keeps nothing when it stops. For anything real, poin
 | Variable | Required | What it is |
 | --- | --- | --- |
 | `MONGODB_URI` | yes | MongoDB connection string |
-| `MONGODB_DB` | no | Database name, defaults to `gruhaflow` |
+| `MONGODB_DB` | no | Database name, defaults to `urbanfirm` |
 | `AUTH_SECRET` | yes | Long random string used to sign session JWTs |
 | `SEED_TOKEN` | yes, to seed | Guards `POST /api/seed` |
 
@@ -127,10 +127,10 @@ Every seeded account uses the password `demo1234`.
 
 | Role | Email | Lands on |
 | --- | --- | --- |
-| Administrator | `admin@gruhaflow.app` | Full console |
-| Sales manager | `manager@gruhaflow.app` | Full console |
-| Tele-call agent | `priya@gruhaflow.app` | Own call list |
-| Tele-call agent | `sunil@gruhaflow.app` | Own call list |
+| Administrator | `admin@theurbanfirm.in` | Full console |
+| Sales manager | `manager@theurbanfirm.in` | Full console |
+| Tele-call agent | `priya@theurbanfirm.in` | Own call list |
+| Tele-call agent | `sunil@theurbanfirm.in` | Own call list |
 | Buyer / resident | any email under Admin → Team & residents | Own home tracker |
 
 The seeded buyers are leads that converted, so each is at a different handover

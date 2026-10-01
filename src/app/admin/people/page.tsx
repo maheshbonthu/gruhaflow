@@ -15,7 +15,7 @@ import { getAgentLeaderboard } from "@/lib/metrics";
 import { ROLE_LABEL } from "@/components/nav";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Team & residents — GruhaFlow" };
+export const metadata = { title: "Team & residents — The Urban Firm" };
 
 export default async function PeoplePage() {
   const users = await collections.users();

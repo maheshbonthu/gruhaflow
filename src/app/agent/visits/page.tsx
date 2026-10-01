@@ -19,7 +19,7 @@ import { collections } from "@/lib/mongodb";
 import MarkAttended from "./MarkAttended";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "My site visits — GruhaFlow" };
+export const metadata = { title: "My site visits — The Urban Firm" };
 
 export default async function AgentVisitsPage() {
   const session = await getSession();

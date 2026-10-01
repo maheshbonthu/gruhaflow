@@ -15,7 +15,7 @@ import type {
 } from "./types";
 
 const uri = process.env.MONGODB_URI;
-const dbName = process.env.MONGODB_DB ?? "gruhaflow";
+const dbName = process.env.MONGODB_DB ?? "urbanfirm";
 
 /**
  * Serverless functions are recycled constantly, so the client is cached on the

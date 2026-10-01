@@ -15,7 +15,7 @@ import ServiceFilters from "./ServiceFilters";
 import TicketRowActions from "./TicketRowActions";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Service desk — GruhaFlow" };
+export const metadata = { title: "Service desk — The Urban Firm" };
 
 export default async function ServiceDeskPage({
   searchParams,

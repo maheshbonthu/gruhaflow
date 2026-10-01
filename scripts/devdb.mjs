@@ -10,7 +10,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 const port = Number(process.env.DEVDB_PORT ?? 27017);
 
 const mongod = await MongoMemoryServer.create({
-  instance: { port, dbName: "gruhaflow" },
+  instance: { port, dbName: "urbanfirm" },
 });
 
 console.log(`devdb listening at ${mongod.getUri()}`);

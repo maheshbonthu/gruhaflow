@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LogoLink } from "@/components/brand/Logo";
 import { getSession, homeFor } from "@/lib/auth";
 
 export default async function PublicHeader() {
@@ -7,12 +8,7 @@ export default async function PublicHeader() {
   return (
     <header className="surface sticky top-0 z-40 border-b hairline">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-        <Link href="/" className="flex shrink-0 items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-600 text-sm font-bold text-white">
-            GF
-          </span>
-          <span className="font-semibold tracking-tight">GruhaFlow</span>
-        </Link>
+        <LogoLink height={30} priority />
 
         <nav className="hidden items-center gap-5 text-sm md:flex">
           <Link href="/properties" className="dim transition hover:text-[color:var(--text)]">

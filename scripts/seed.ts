@@ -17,7 +17,7 @@ async function main() {
   const { seedDatabase } = await import("../src/lib/seed");
   const { getClient } = await import("../src/lib/mongodb");
 
-  console.log(`Seeding ${process.env.MONGODB_DB ?? "gruhaflow"}…`);
+  console.log(`Seeding ${process.env.MONGODB_DB ?? "urbanfirm"}…`);
   const started = Date.now();
   const summary = await seedDatabase();
 
@@ -25,7 +25,7 @@ async function main() {
   for (const [key, value] of Object.entries(summary)) {
     console.log(`  ${key.padEnd(14)} ${value}`);
   }
-  console.log("\nSign in with admin@gruhaflow.app / demo1234");
+  console.log("\nSign in with admin@theurbanfirm.in / demo1234");
 
   const client = await getClient();
   await client.close();

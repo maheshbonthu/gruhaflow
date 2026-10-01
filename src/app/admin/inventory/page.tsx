@@ -15,7 +15,7 @@ import { inr, inrExact } from "@/lib/fmt";
 import { collections } from "@/lib/mongodb";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Projects & units — GruhaFlow" };
+export const metadata = { title: "Projects & units — The Urban Firm" };
 
 export default async function InventoryPage({
   searchParams,

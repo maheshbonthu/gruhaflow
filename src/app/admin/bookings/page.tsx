@@ -16,7 +16,7 @@ import { fmtDate, inr, pct } from "@/lib/fmt";
 import { listBookings } from "@/lib/queries";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Bookings — GruhaFlow" };
+export const metadata = { title: "Bookings — The Urban Firm" };
 
 export default async function BookingsPage() {
   const bookings = await listBookings();
@@ -89,7 +89,7 @@ export default async function BookingsPage() {
                   <Td className="whitespace-nowrap text-xs">{fmtDate(b.bookingDate)}</Td>
                   <Td className="min-w-[160px]">
                     <div className="flex items-center gap-2">
-                      <Progress value={b.progress} tone={b.overdueSteps ? "warn" : "brand"} />
+                      <Progress value={b.progress} tone={b.overdueSteps ? "bad" : "brand"} />
                       <span className="dim w-9 text-right text-xs tabular-nums">{b.progress}%</span>
                     </div>
                     <p className="dim mt-1 truncate text-xs">{b.nextStep ?? "All steps complete"}</p>

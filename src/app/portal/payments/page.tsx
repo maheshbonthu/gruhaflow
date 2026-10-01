@@ -16,7 +16,7 @@ import { fmtDate, inr, inrExact, pct, relative } from "@/lib/fmt";
 import { getCustomerView } from "@/lib/queries";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Payment schedule — GruhaFlow" };
+export const metadata = { title: "Payment schedule — The Urban Firm" };
 
 export default async function PaymentsPage() {
   const session = await getSession();
@@ -59,7 +59,7 @@ export default async function PaymentsPage() {
       </StatGrid>
 
       <div className="mt-4">
-        <Progress value={Math.round((view.paid / b.totalAmount) * 100)} tone={overdue.length ? "warn" : "brand"} />
+        <Progress value={Math.round((view.paid / b.totalAmount) * 100)} tone={overdue.length ? "bad" : "brand"} />
       </div>
 
       <Card className="mt-5" title="Instalments" subtitle="Earliest first.">

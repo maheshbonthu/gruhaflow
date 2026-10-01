@@ -3,12 +3,12 @@ import { redirect } from "next/navigation";
 import { getSession, homeFor } from "@/lib/auth";
 import LoginForm from "./LoginForm";
 
-export const metadata = { title: "Sign in — GruhaFlow" };
+export const metadata = { title: "Sign in — The Urban Firm" };
 
 const DEMO_LOGINS = [
-  { role: "Admin", email: "admin@gruhaflow.app", what: "Everything: funnel, handover, maintenance, billing" },
-  { role: "Sales manager", email: "manager@gruhaflow.app", what: "Whole-business dashboards and the team leaderboard" },
-  { role: "Tele-call agent", email: "priya@gruhaflow.app", what: "Own call list, dispositions and site visits" },
+  { role: "Admin", email: "admin@theurbanfirm.in", what: "Everything: funnel, handover, maintenance, billing" },
+  { role: "Sales manager", email: "manager@theurbanfirm.in", what: "Whole-business dashboards and the team leaderboard" },
+  { role: "Tele-call agent", email: "priya@theurbanfirm.in", what: "Own call list, dispositions and site visits" },
 ];
 
 export default async function LoginPage({
@@ -26,7 +26,7 @@ export default async function LoginPage({
         <Link href="/" className="dim text-sm hover:underline">
           ← Back to site
         </Link>
-        <h1 className="mt-4 text-2xl font-semibold tracking-tight">Sign in to GruhaFlow</h1>
+        <h1 className="mt-4 text-2xl font-semibold tracking-tight">Sign in to The Urban Firm</h1>
         <p className="dim mt-2 text-sm">
           One login, three views. Staff land on the sales and operations console; buyers land on
           their own home-buying tracker.

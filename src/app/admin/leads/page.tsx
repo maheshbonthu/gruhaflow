@@ -17,7 +17,7 @@ import LeadFilters from "./LeadFilters";
 import NewLeadButton from "./NewLeadButton";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Leads & calls — GruhaFlow" };
+export const metadata = { title: "Leads & calls — The Urban Firm" };
 
 export default async function LeadsPage({
   searchParams,

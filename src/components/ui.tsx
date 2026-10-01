@@ -4,7 +4,7 @@ export function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(" ");
 }
 
-/* ------------------------------------------------------------------- shell */
+/* ------------------------------------------------------------------ shell */
 
 export function Card({
   children,
@@ -20,16 +20,11 @@ export function Card({
   action?: ReactNode;
 }) {
   return (
-    <section
-      className={cx(
-        "surface rounded-xl border hairline shadow-sm",
-        className
-      )}
-    >
+    <section className={cx("surface rounded-card border hairline", className)}>
       {(title || action) && (
         <header className="flex flex-wrap items-start justify-between gap-3 border-b hairline px-4 py-3 sm:px-5">
           <div>
-            {title && <h2 className="text-sm font-semibold tracking-tight">{title}</h2>}
+            {title && <h2 className="text-sm font-semibold">{title}</h2>}
             {subtitle && <p className="dim mt-0.5 text-xs">{subtitle}</p>}
           </div>
           {action}
@@ -52,7 +47,7 @@ export function PageHeader({
   return (
     <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
       <div>
-        <h1 className="text-xl font-semibold tracking-tight sm:text-2xl">{title}</h1>
+        <h1 className="text-xl font-bold sm:text-2xl">{title}</h1>
         {subtitle && <p className="dim mt-1 text-sm">{subtitle}</p>}
       </div>
       {action}
@@ -73,17 +68,18 @@ export function Stat({
   hint?: ReactNode;
   tone?: "neutral" | "good" | "warn" | "bad" | "brand";
 }) {
+  // Green is reserved for positive/brand; everything else stays neutral ink.
   const tones: Record<string, string> = {
-    neutral: "",
-    brand: "text-brand-600 dark:text-brand-300",
-    good: "text-brand-600 dark:text-brand-300",
-    warn: "text-gold-600 dark:text-gold-400",
-    bad: "text-rose-600 dark:text-rose-400",
+    neutral: "text-ink-950",
+    brand: "text-green-700",
+    good: "text-green-700",
+    warn: "text-ink-950",
+    bad: "text-[color:var(--color-danger)]",
   };
   return (
-    <div className="surface rounded-xl border hairline p-4 shadow-sm">
-      <p className="dim text-xs font-medium uppercase tracking-wide">{label}</p>
-      <p className={cx("mt-1.5 text-2xl font-semibold tabular-nums", tones[tone])}>{value}</p>
+    <div className="surface rounded-card border hairline p-4">
+      <p className="dim text-xs font-medium">{label}</p>
+      <p className={cx("mt-1.5 text-2xl font-bold tabular-nums", tones[tone])}>{value}</p>
       {hint && <p className="dim mt-1 text-xs">{hint}</p>}
     </div>
   );
@@ -100,29 +96,28 @@ export function StatGrid({ children, cols = 4 }: { children: ReactNode; cols?: 3
 
 /* ------------------------------------------------------------------ badges */
 
-type BadgeTone = "neutral" | "brand" | "good" | "warn" | "bad" | "info" | "muted";
+export type BadgeTone = "neutral" | "brand" | "good" | "warn" | "bad" | "info" | "muted";
 
+/**
+ * Only two colour families exist: green for positive/brand, red for genuine
+ * failure. "warn" and "info" are deliberately neutral — inventing amber and
+ * blue would break the three-colour brand rule.
+ */
 const BADGE_TONES: Record<BadgeTone, string> = {
-  neutral: "bg-ink-100 text-ink-700 dark:bg-ink-800 dark:text-ink-200",
-  muted: "bg-ink-100 text-ink-500 dark:bg-ink-800 dark:text-ink-400",
-  brand: "bg-brand-100 text-brand-700 dark:bg-brand-700/25 dark:text-brand-300",
-  good: "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300",
-  warn: "bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300",
-  bad: "bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300",
-  info: "bg-sky-100 text-sky-700 dark:bg-sky-500/20 dark:text-sky-300",
+  neutral: "bg-ink-100 text-ink-900",
+  muted: "bg-ink-100 text-ink-500",
+  brand: "bg-green-50 text-green-700",
+  good: "bg-green-50 text-green-700",
+  info: "bg-ink-100 text-ink-900",
+  warn: "bg-ink-950 text-white",
+  bad: "bg-[color:var(--color-danger)] text-white",
 };
 
-export function Badge({
-  children,
-  tone = "neutral",
-}: {
-  children: ReactNode;
-  tone?: BadgeTone;
-}) {
+export function Badge({ children, tone = "neutral" }: { children: ReactNode; tone?: BadgeTone }) {
   return (
     <span
       className={cx(
-        "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium whitespace-nowrap",
+        "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold whitespace-nowrap",
         BADGE_TONES[tone]
       )}
     >
@@ -131,7 +126,6 @@ export function Badge({
   );
 }
 
-/** Maps every status enum in the app onto a badge tone. */
 export function toneForStatus(status: string): BadgeTone {
   switch (status) {
     case "BOOKED":
@@ -159,6 +153,7 @@ export function toneForStatus(status: string): BadgeTone {
     case "ON_HOLD":
     case "PENDING":
     case "HELD":
+    case "OPEN":
       return "warn";
     case "NOT_INTERESTED":
     case "UNREACHABLE":
@@ -168,8 +163,6 @@ export function toneForStatus(status: string): BadgeTone {
     case "NO_SHOW":
     case "CANCELLED":
       return "bad";
-    case "OPEN":
-      return "warn";
     default:
       return "neutral";
   }
@@ -185,11 +178,17 @@ export function Table({ children }: { children: ReactNode }) {
   );
 }
 
-export function Th({ children, align = "left" }: { children?: ReactNode; align?: "left" | "right" | "center" }) {
+export function Th({
+  children,
+  align = "left",
+}: {
+  children?: ReactNode;
+  align?: "left" | "right" | "center";
+}) {
   return (
     <th
       className={cx(
-        "dim border-b hairline px-3 py-2 text-xs font-semibold uppercase tracking-wide whitespace-nowrap",
+        "dim border-b hairline px-3 py-2 text-xs font-semibold whitespace-nowrap",
         align === "right" && "text-right",
         align === "center" && "text-center",
         align === "left" && "text-left"
@@ -229,26 +228,43 @@ export function Empty({ children }: { children: ReactNode }) {
 
 /* ----------------------------------------------------------------- buttons */
 
+export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "on-dark";
+
+/**
+ * `on-dark` exists because the brand green fails AA with white text. On a black
+ * surface the CTA flips to green-400 with black text, which measures 8.69:1.
+ */
+const BUTTON_VARIANTS: Record<ButtonVariant, string> = {
+  primary: "bg-green-700 text-white hover:bg-green-700/90",
+  "on-dark": "bg-green-400 text-ink-950 hover:bg-green-400/90",
+  secondary: "surface border hairline text-ink-950 hover:bg-ink-50",
+  ghost: "text-ink-900 hover:bg-ink-100",
+  danger: "bg-[color:var(--color-danger)] text-white hover:opacity-90",
+};
+
 export function Button({
   children,
   variant = "primary",
+  size = "md",
   className,
   ...rest
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "secondary" | "ghost" | "danger";
+  variant?: ButtonVariant;
+  size?: "sm" | "md" | "lg";
 }) {
-  const variants: Record<string, string> = {
-    primary: "bg-brand-600 text-white hover:bg-brand-700",
-    secondary: "surface-2 border hairline hover:brightness-95",
-    ghost: "hover:surface-2",
-    danger: "bg-rose-600 text-white hover:bg-rose-700",
-  };
+  const sizes = {
+    // Minimum 44px touch target at md and lg (ui-ux-pro-max priority 2).
+    sm: "px-3 py-1.5 text-xs gap-1",
+    md: "px-4 py-2.5 text-sm gap-1.5 min-h-11",
+    lg: "px-6 py-3 text-base gap-2 min-h-12",
+  } as const;
   return (
     <button
       {...rest}
       className={cx(
-        "inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50",
-        variants[variant],
+        "press inline-flex items-center justify-center rounded-field font-semibold transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-40",
+        BUTTON_VARIANTS[variant],
+        sizes[size],
         className
       )}
     >
@@ -257,9 +273,103 @@ export function Button({
   );
 }
 
+/* ------------------------------------------------------------------ inputs */
+
+export const fieldClass =
+  "surface w-full rounded-field border hairline px-3 py-2.5 text-sm text-ink-900 placeholder:text-ink-500 outline-none transition-colors focus:border-green-700 disabled:bg-ink-50 disabled:text-ink-500 aria-[invalid=true]:border-[color:var(--color-danger)]";
+
+export function Field({
+  label,
+  htmlFor,
+  hint,
+  error,
+  children,
+}: {
+  label: string;
+  htmlFor: string;
+  hint?: string;
+  error?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div>
+      <label htmlFor={htmlFor} className="mb-1 block text-sm font-semibold text-ink-950">
+        {label}
+      </label>
+      {children}
+      {/* Helper sits under the field; the error replaces it, next to the input. */}
+      {error ? (
+        <p className="mt-1 text-xs font-medium text-[color:var(--color-danger)]">{error}</p>
+      ) : hint ? (
+        <p className="dim mt-1 text-xs">{hint}</p>
+      ) : null}
+    </div>
+  );
+}
+
+/* --------------------------------------------------------------- feedback */
+
+export function Progress({ value, tone = "brand" }: { value: number; tone?: "brand" | "bad" }) {
+  const colors = { brand: "bg-green-500", bad: "bg-[color:var(--color-danger)]" };
+  return (
+    <div
+      className="h-2 w-full overflow-hidden rounded-full bg-ink-100"
+      role="progressbar"
+      aria-valuenow={Math.round(value)}
+      aria-valuemin={0}
+      aria-valuemax={100}
+    >
+      <div
+        className={cx("h-full rounded-full transition-[width] duration-300", colors[tone])}
+        style={{ width: `${Math.min(100, Math.max(0, value))}%` }}
+      />
+    </div>
+  );
+}
+
+/** Skeletons reserve the real element's box, so nothing shifts on load. */
+export function Skeleton({ className }: { className?: string }) {
+  return <div className={cx("animate-pulse rounded bg-ink-100", className)} aria-hidden="true" />;
+}
+
+export function SkeletonCard() {
+  return (
+    <div className="surface rounded-card border hairline p-4">
+      <Skeleton className="mb-3 h-40 w-full rounded-field" />
+      <Skeleton className="mb-2 h-4 w-2/3" />
+      <Skeleton className="mb-2 h-4 w-1/3" />
+      <div className="mt-4 flex gap-2">
+        <Skeleton className="h-9 w-24 rounded-field" />
+        <Skeleton className="h-9 w-24 rounded-field" />
+      </div>
+      <span className="sr-only">Loading</span>
+    </div>
+  );
+}
+
+export function Spinner({ className }: { className?: string }) {
+  return (
+    <svg
+      className={cx("animate-spin", className)}
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeOpacity="0.25" strokeWidth="2.5" />
+      <path
+        d="M14.5 8A6.5 6.5 0 0 0 8 1.5"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 /* ------------------------------------------------------------------ charts */
 
-/** Horizontal funnel: each bar is width-proportional to the top of the funnel. */
 export function FunnelChart({
   steps,
 }: {
@@ -273,20 +383,13 @@ export function FunnelChart({
             <span className="font-medium">{s.label}</span>
             <span className="tabular-nums">
               <strong>{s.count.toLocaleString("en-IN")}</strong>
-              {i > 0 && (
-                <span className="dim ml-2 text-xs">
-                  {s.ofPrevious.toFixed(0)}% of previous
-                </span>
-              )}
+              {i > 0 && <span className="dim ml-2 text-xs">{s.ofPrevious.toFixed(0)}% of previous</span>}
             </span>
           </div>
-          <div className="surface-2 h-2.5 w-full overflow-hidden rounded-full">
+          <div className="h-2.5 w-full overflow-hidden rounded-full bg-ink-100">
             <div
-              className="h-full rounded-full bg-brand-500"
-              style={{
-                width: `${Math.max(s.ofTotal, 1.5)}%`,
-                opacity: 1 - i * 0.1,
-              }}
+              className="h-full rounded-full bg-green-500"
+              style={{ width: `${Math.max(s.ofTotal, 1.5)}%`, opacity: 1 - i * 0.09 }}
             />
           </div>
         </li>
@@ -295,16 +398,6 @@ export function FunnelChart({
   );
 }
 
-export function Progress({ value, tone = "brand" }: { value: number; tone?: "brand" | "warn" | "bad" }) {
-  const colors = { brand: "bg-brand-500", warn: "bg-amber-500", bad: "bg-rose-500" };
-  return (
-    <div className="surface-2 h-2 w-full overflow-hidden rounded-full" title={`${value}%`}>
-      <div className={cx("h-full rounded-full", colors[tone])} style={{ width: `${Math.min(100, Math.max(0, value))}%` }} />
-    </div>
-  );
-}
-
-/** Two-series vertical bars, drawn with plain divs to stay dependency-free. */
 export function BarChart({
   data,
   max,
@@ -316,16 +409,41 @@ export function BarChart({
   return (
     <div className="flex h-36 items-end gap-1.5">
       {data.map((d) => (
-        <div key={d.label} className="group flex h-full flex-1 flex-col justify-end" title={`${d.label}: ${d.a} calls, ${d.b} connected`}>
+        <div
+          key={d.label}
+          className="flex h-full flex-1 flex-col justify-end"
+          title={`${d.label}: ${d.a} calls, ${d.b} connected`}
+        >
           <div className="relative w-full" style={{ height: `${(d.a / ceiling) * 100}%` }}>
-            <div className="surface-2 absolute inset-0 rounded-t" />
+            <div className="absolute inset-0 rounded-t bg-ink-100" />
             <div
-              className="absolute bottom-0 w-full rounded-t bg-brand-500"
+              className="absolute bottom-0 w-full rounded-t bg-green-500"
               style={{ height: `${d.a ? (d.b / d.a) * 100 : 0}%` }}
             />
           </div>
         </div>
       ))}
     </div>
+  );
+}
+
+/** Price movement. Red is functional here, not decorative. */
+export function PriceTrend({ percent, years = 3 }: { percent: number; years?: number }) {
+  const up = percent >= 0;
+  return (
+    <span
+      className={cx(
+        "inline-flex items-center gap-1 text-sm font-semibold tabular-nums",
+        up ? "text-green-700" : "text-[color:var(--color-danger)]"
+      )}
+    >
+      <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" fill="currentColor">
+        {up ? <path d="M5 0l5 9H0z" /> : <path d="M5 10L0 1h10z" />}
+      </svg>
+      {Math.abs(percent).toFixed(2)}%
+      <span className="dim font-normal">({years}yrs)</span>
+      {/* Never colour alone: the arrow and sign carry the meaning too. */}
+      <span className="sr-only">{up ? "increase" : "decrease"}</span>
+    </span>
   );
 }

@@ -10,7 +10,7 @@ function addDays(from: Date, days: number): Date {
 }
 
 export function bookingCode(seq: number): string {
-  return `GF-BK-${String(seq).padStart(5, "0")}`;
+  return `UF-BK-${String(seq).padStart(5, "0")}`;
 }
 
 /** The standard construction-linked payment plan applied to every booking. */
@@ -101,7 +101,7 @@ export async function convertLeadToBooking(opts: {
   const totalAmount = opts.totalAmount ?? unit.price;
 
   // Reuse the login if this buyer already exists, otherwise mint one.
-  const email = (lead.email ?? `${lead.phone}@buyer.gruhaflow.app`).toLowerCase();
+  const email = (lead.email ?? `${lead.phone}@buyer.theurbanfirm.in`).toLowerCase();
   let customer = await users.findOne({ email });
   let tempPassword: string | undefined;
   if (!customer) {

@@ -129,12 +129,12 @@ export async function seedDatabase(): Promise<SeedSummary> {
   /* ------------------------------------------------------------- staff */
 
   const staffSeed = [
-    { name: "Aarthi Menon", email: "admin@gruhaflow.app", role: "ADMIN" as const },
-    { name: "Vikram Shetty", email: "manager@gruhaflow.app", role: "MANAGER" as const },
-    { name: "Priya Reddy", email: "priya@gruhaflow.app", role: "AGENT" as const },
-    { name: "Sunil Kumar", email: "sunil@gruhaflow.app", role: "AGENT" as const },
-    { name: "Fatima Khan", email: "fatima@gruhaflow.app", role: "AGENT" as const },
-    { name: "Rahul Verma", email: "rahul@gruhaflow.app", role: "AGENT" as const },
+    { name: "Aarthi Menon", email: "admin@theurbanfirm.in", role: "ADMIN" as const },
+    { name: "Vikram Shetty", email: "manager@theurbanfirm.in", role: "MANAGER" as const },
+    { name: "Priya Reddy", email: "priya@theurbanfirm.in", role: "AGENT" as const },
+    { name: "Sunil Kumar", email: "sunil@theurbanfirm.in", role: "AGENT" as const },
+    { name: "Fatima Khan", email: "fatima@theurbanfirm.in", role: "AGENT" as const },
+    { name: "Rahul Verma", email: "rahul@theurbanfirm.in", role: "AGENT" as const },
   ];
 
   const staffIds: ObjectId[] = [];
@@ -583,7 +583,7 @@ export async function seedDatabase(): Promise<SeedSummary> {
     if (!unit) break;
     const bookingDate = lead.bookedAt ?? daysAgo(between(30, 330));
 
-    const email = (lead.email ?? `${lead.phone}@buyer.gruhaflow.app`).toLowerCase();
+    const email = (lead.email ?? `${lead.phone}@buyer.theurbanfirm.in`).toLowerCase();
     const customerRes = await users.insertOne({
       name: lead.name,
       email,
@@ -681,7 +681,7 @@ export async function seedDatabase(): Promise<SeedSummary> {
     ["JalDhara Water Systems", "WATER_SUPPLY"],
     ["FiberLink Broadband", "INTERNET"],
     ["ParkSmart Management", "PARKING"],
-    ["GruhaFlow In-house Crew", "OTHER"],
+    ["The Urban Firm In-house Crew", "OTHER"],
   ];
   const vendorIds = new Map<ServiceCategory, ObjectId>();
   for (let i = 0; i < vendorSeed.length; i++) {
@@ -757,7 +757,7 @@ export async function seedDatabase(): Promise<SeedSummary> {
       }
 
       ticketDocs.push({
-        code: `GF-SR-${String(1000 + ticketSeq)}`,
+        code: `UF-SR-${String(1000 + ticketSeq)}`,
         customerId: customer.id,
         unitId: customer.unitId,
         projectId: customer.projectId,

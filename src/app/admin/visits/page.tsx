@@ -15,7 +15,7 @@ import { fmtDateTime, humanize, pct } from "@/lib/fmt";
 import { collections } from "@/lib/mongodb";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Site visits — GruhaFlow" };
+export const metadata = { title: "Site visits — The Urban Firm" };
 
 export default async function VisitsPage() {
   const visitsCol = await collections.visits();

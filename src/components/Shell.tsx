@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LogoLink } from "@/components/brand/Logo";
 import type { ReactNode } from "react";
 import type { Session } from "@/lib/auth";
 import SideNav from "./SideNav";
@@ -29,12 +30,7 @@ export default function Shell({
       {/* Sidebar on desktop, a horizontal scroller on phones. */}
       <aside className="surface border-b hairline lg:w-64 lg:shrink-0 lg:border-b-0 lg:border-r">
         <div className="flex items-center justify-between gap-3 px-4 py-3 lg:block">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-600 text-sm font-bold text-white">
-              GF
-            </span>
-            <span className="text-sm font-semibold tracking-tight">GruhaFlow</span>
-          </Link>
+          <LogoLink height={26} />
           <div className="flex items-center gap-2 lg:mt-4">
             <span className="surface-2 grid h-8 w-8 place-items-center rounded-full text-xs font-semibold">
               {initials(session.name)}
