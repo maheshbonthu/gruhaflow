@@ -9,3 +9,9 @@ dist/
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
+
+.vercel
+.env*
+
+# The example file is a template with no real values - keep it tracked.
+!.env.example
